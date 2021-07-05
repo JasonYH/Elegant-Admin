@@ -5,6 +5,7 @@ namespace App\Dto\Response\Transformer;
 
 use App\Dto\DtoSerializeInterface;
 use Closure;
+use JMS\Serializer\Naming\IdenticalPropertyNamingStrategy;
 use JMS\Serializer\SerializerBuilder;
 use stdClass;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +38,7 @@ abstract class AbstractResponseDtoTransformer implements DtoSerializeInterface
         $a->msg = $msg;
         $a->data = $this;
 
-        $serializer = SerializerBuilder::create()->build();
+        $serializer = SerializerBuilder::create()->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy())->build();
         $json = $serializer->serialize($a, 'json');
 
         $response = new Response();
