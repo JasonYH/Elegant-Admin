@@ -3,7 +3,6 @@
 <!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-         backupGlobals="false"
          colors="true"
          bootstrap="tests/bootstrap.php"
          convertDeprecationsToExceptions="false"
@@ -26,12 +25,28 @@
         <include>
             <directory suffix=".php">src</directory>
         </include>
+        <report>
+            <clover outputFile="./phpunit-report/clover.xml"/>
+            <crap4j outputFile="./phpunit-report/crap4j.xml" threshold="80"/>
+            <html outputDirectory="./phpunit-report/html-coverage" lowUpperBound="80" highLowerBound="80"/>
+            <php outputFile="./phpunit-report/coverage.php"/>
+            <text outputFile="./phpunit-report/coverage.txt" showOnlySummary="true"/>
+            <xml outputDirectory="./phpunit-report/xml-coverage"/>
+        </report>
     </coverage>
 
     <listeners>
-        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
+        <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener"/>
     </listeners>
 
+    <logging>
+        <junit outputFile="./phpunit-report/junit.xml"/>
+        <teamcity outputFile="./phpunit-report/teamcity.txt"/>
+        <testdoxHtml outputFile="./phpunit-report/testdox.html"/>
+        <testdoxText outputFile="./phpunit-report/testdox.txt"/>
+        <testdoxXml outputFile="./phpunit-report/testdox.xml"/>
+        <text outputFile="./phpunit-report/logfile.txt"/>
+    </logging>
     <!-- Run `composer require symfony/panther` before enabling this extension -->
     <!--
     <extensions>
