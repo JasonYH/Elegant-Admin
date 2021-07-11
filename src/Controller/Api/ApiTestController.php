@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class ApiTestController
  * @package App\Controller\Api
  *
- * @Route("/api")
+ * @Route("/api",defaults={"anonymous":true})
  */
 class ApiTestController extends AbstractController
 {

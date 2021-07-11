@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * 授权认证控制器
  * @package App\Controller\Api
  *
- * @Route("/api")
+ * @Route("/api",defaults={"anonymous":true})
  */
 class AuthorizeController extends AbstractController
 {
@@ -81,7 +81,7 @@ class AuthorizeController extends AbstractController
     /**
      * 登出
      *
-     * @Route("/logout",methods={"GET"})
+     * @Route("/logout",methods={"GET"},defaults={"anonymous":false})
      *
      * @param Request $request
      * @param LogoutAction $action

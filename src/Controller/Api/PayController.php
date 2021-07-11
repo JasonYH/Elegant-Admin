@@ -51,7 +51,7 @@ class PayController extends AbstractController
 
     /**
      * 支付回调接口
-     * @Route("/notify",methods={"POST"})
+     * @Route("/notify",methods={"POST"},defaults={"anonymous":true})
      * @param AliPayNotifyDto $dto
      * @param PayInterface $pay
      * @param AliPayNotifyAction $action

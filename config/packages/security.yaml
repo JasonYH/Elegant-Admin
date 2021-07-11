@@ -2,29 +2,26 @@ security:
     # https://symfony.com/doc/current/security/experimental_authenticators.html
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
-    providers:
-        token_user_provider:
-            id: App\Security\Provider\TokenUserProvider
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        anonymous:
-            pattern: ^/api/(login|register|reset-pwd|verifi/.*|test.*|payment/notify)$
-            security: false
+
+        api:
+            pattern: ^/api
+            stateless: true
+            lazy: true
+            custom_authenticators:
+                - App\Security\ApiKeyAuthenticator
+
         main:
             stateless: true
             lazy: true
-            provider: token_user_provider
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
-            guard:
-                authenticators:
-                    - App\Security\Guard\TokenAuthenticator
-
-
-
+            # custom_authenticators:
+            #     - App\Security\ApiKeyAuthenticator
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
 
