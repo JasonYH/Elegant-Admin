@@ -37,7 +37,8 @@
         "symfony/security-bundle": "5.3.*",
         "symfony/serializer": "5.3.*",
         "symfony/validator": "5.3.*",
-        "symfony/yaml": "5.3.*"
+        "symfony/yaml": "5.3.*",
+        "zircote/swagger-php": "^3.2"
     },
     "require-dev": {
         "phpunit/php-code-coverage": "^9.2",
