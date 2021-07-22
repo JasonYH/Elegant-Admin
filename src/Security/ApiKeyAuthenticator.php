@@ -5,7 +5,6 @@ namespace App\Security;
 
 use App\Exceptions\NoPermissionException;
 use App\Exceptions\UnauthorizedException;
-use App\Repository\UserRepository;
 use App\Task\GetUserInfoCacheTask;
 use App\Utils\TokenUtils\TokenUtils;
 use ReflectionException;
@@ -24,22 +23,22 @@ class ApiKeyAuthenticator extends AbstractAuthenticator
 
     private GetUserInfoCacheTask $getUserInfoCacheTask;
 
-    private UserRepository $userRepository;
+    private ApiUserProvider $apiUserProvider;
 
     /**
      * ApiKeyAuthenticator constructor.
      * @param TokenUtils $tokenUtils
      * @param GetUserInfoCacheTask $getUserInfoCacheTask
-     * @param UserRepository $userRepository
+     * @param ApiUserProvider $apiUserProvider
      */
     public function __construct(
         TokenUtils $tokenUtils,
         GetUserInfoCacheTask $getUserInfoCacheTask,
-        UserRepository $userRepository
+        ApiUserProvider $apiUserProvider
     ) {
         $this->tokenUtils = $tokenUtils;
         $this->getUserInfoCacheTask = $getUserInfoCacheTask;
-        $this->userRepository = $userRepository;
+        $this->apiUserProvider = $apiUserProvider;
     }
 
     /**
@@ -67,12 +66,15 @@ class ApiKeyAuthenticator extends AbstractAuthenticator
      */
     public function authenticate(Request $request): PassportInterface
     {
-        $credentials = $request->headers->get('API-TOKEN');
+        $credentials = $request->headers->get('Authorization');
         if (!$credentials) {
             throw new UnauthorizedException();
         }
 
         $token = $this->tokenUtils->validateToken($credentials);
+        if (!$token) {
+            throw new UnauthorizedException();
+        }
         $userCache = $this->getUserInfoCacheTask->run($token->id);
         if (is_null($userCache) || !in_array($credentials, $userCache->tokens)) {
             throw new UnauthorizedException();
@@ -81,12 +83,8 @@ class ApiKeyAuthenticator extends AbstractAuthenticator
             throw new NoPermissionException('账号异常');
         }
 
-        return new SelfValidatingPassport(new UserBadge($credentials, function () use ($token) {
-            $user = $this->userRepository->findByIdField($token->id);
-            if (!$user) {
-                throw new UnauthorizedException();
-            }
-            return $user;
+        return new SelfValidatingPassport(new UserBadge($credentials, function () use ($userCache) {
+            return $this->apiUserProvider->setUserCache($userCache);
         }));
     }
 
