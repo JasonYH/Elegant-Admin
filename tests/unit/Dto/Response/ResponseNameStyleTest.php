@@ -15,7 +15,7 @@ class ResponseNameStyleTest extends KernelTestCase
     {
         $response = new ResponseTestDemoDto();
         $response->createTime = "create time test";
-        $correctCase = '{"code":0,"msg":"ok","data":{"createTime":"create time test"}}';
+        $correctCase = '{"code":0,"message":"ok","result":{"createTime":"create time test"}}';
         $this->assertSame($correctCase,$response->transformerResponse()->getContent());
     }
 }

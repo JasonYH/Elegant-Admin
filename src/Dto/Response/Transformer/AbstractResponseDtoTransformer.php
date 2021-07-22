@@ -35,8 +35,8 @@ abstract class AbstractResponseDtoTransformer implements DtoSerializeInterface
     {
         $a = new stdClass();
         $a->code = $code;
-        $a->msg = $msg;
-        $a->data = $this;
+        $a->message = $msg;
+        $a->result = $this;
 
         $serializer = SerializerBuilder::create()->setPropertyNamingStrategy(new IdenticalPropertyNamingStrategy())->build();
         $json = $serializer->serialize($a, 'json');
