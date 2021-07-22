@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * 验证码接口
  * @package App\Controller\Api
  *
- * @Route("/api/verifi",defaults={"anonymous":true})
+ * @Route("/api/verify",defaults={"anonymous":true})
  */
 class VerifiCodeController extends AbstractController
 {
