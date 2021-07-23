@@ -11,5 +11,5 @@ class NotFoundException extends AbstractLogicException
 
     public $message = '无权限';
 
-    public $httpStatusCode = Response::HTTP_NOT_FOUND;
+    public int $httpStatusCode = Response::HTTP_NOT_FOUND;
 }

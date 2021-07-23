@@ -11,5 +11,5 @@ class UnauthorizedException extends AbstractLogicException
 
     public $message = '未授权';
 
-    public $httpStatusCode = Response::HTTP_UNAUTHORIZED;
+    public int $httpStatusCode = Response::HTTP_UNAUTHORIZED;
 }

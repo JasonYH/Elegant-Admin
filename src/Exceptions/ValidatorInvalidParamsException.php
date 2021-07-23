@@ -11,5 +11,5 @@ class ValidatorInvalidParamsException extends AbstractLogicException
 
     public $message = '参数错误';
 
-    public $httpStatusCode = Response::HTTP_BAD_REQUEST;
+    public int $httpStatusCode = Response::HTTP_BAD_REQUEST;
 }
