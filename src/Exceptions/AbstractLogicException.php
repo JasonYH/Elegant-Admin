@@ -3,13 +3,21 @@ declare(strict_types=1);
 
 namespace App\Exceptions;
 
-abstract class AbstractLogicException extends \LogicException
+use LogicException;
+
+abstract class AbstractLogicException extends LogicException
 {
+    /**
+     * @var int
+     */
     public $code;
 
+    /**
+     * @var string
+     */
     public $message;
 
-    public $httpStatusCode;
+    public int $httpStatusCode;
 
 
     // 参数错误
@@ -17,7 +25,7 @@ abstract class AbstractLogicException extends \LogicException
     // 未授权
     public const UNAUTHORIZED_ERROR = -401;
     // 无权限
-    public const PAYMENT_ERROR = -402;
+    public const PAYMENT_ERROR = -403;
     // 不存在
     public const NOTFOUND_ERROR = -404;
 
