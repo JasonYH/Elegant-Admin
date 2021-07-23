@@ -42,13 +42,13 @@ class ExceptionSubscriber implements EventSubscriberInterface
         $debug = $this->params->get('kernel.debug');
         $exception = $event->getThrowable();
         $report = [
-            'msg'  => $exception->getMessage(),
+            'message'  => $exception->getMessage(),
             'code' => $exception->getCode(),
         ];
 
         $this->logger->error('异常',
             [
-                'msg'   => $exception->getMessage(),
+                'message'   => $exception->getMessage(),
                 'code'  => $exception->getCode(),
                 'trace' => $exception->getTrace()
             ]
@@ -56,7 +56,7 @@ class ExceptionSubscriber implements EventSubscriberInterface
 
         if (!$exception instanceof AbstractLogicException) {
             $report = [
-                'msg'  => '服务器内部错误',
+                'message'  => '服务器内部错误',
                 'code' => -1,
             ];
         }
