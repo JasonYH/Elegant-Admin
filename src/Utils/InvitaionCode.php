@@ -54,7 +54,7 @@ class InvitaionCode
      * @param array $dictionaries
      * @param string $complement
      */
-    public function __construct($max = 6, $dictionaries = array(), $complement = '')
+    public function __construct(int $max = 6, array $dictionaries = array(), string $complement = '')
     {
         if (!empty($max)) {
             self::$max = $max;
