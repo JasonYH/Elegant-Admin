@@ -47,7 +47,7 @@ class RequestDtoResolver implements ArgumentValueResolverInterface
 
         $contentType = $request->headers->get('Content-Type');
 
-        $isJson = strpos($contentType, 'json');
+        $isJson = 'application/json' === $contentType;
 
 
         if ($request->getMethod() === 'GET') {
