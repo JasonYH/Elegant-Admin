@@ -17,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  *     })
  * @Gedmo\SoftDeleteable(fieldName="deletedTime")
  */
-class User implements UserInterface
+class User
 {
     /**
      * @ORM\Id
@@ -101,34 +101,6 @@ class User implements UserInterface
     public function getPassword(): ?string
     {
         return $this->password;
-    }
-
-    public function getRoles(): array
-    {
-        $roles[] = 'ROLE_USER';
-
-        return array_unique($roles);
-    }
-
-    public function getSalt(): ?string
-    {
-        return null;
-    }
-
-    public function getUsername(): string
-    {
-        return (string)$this->phone;
-    }
-
-    /**
-     * 从用户中删除敏感数据。
-     *
-     * 如果在任何给定时间点，敏感信息如
-     * 纯文本密码存储在此对象上。
-     */
-    public function eraseCredentials()
-    {
-        // TODO: Implement eraseCredentials() method.
     }
 
     public function getId(): ?string
