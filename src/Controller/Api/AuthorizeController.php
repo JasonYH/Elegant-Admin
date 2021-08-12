@@ -91,10 +91,8 @@ class AuthorizeController extends AbstractController
      */
     public function logout(Request $request, LogoutAction $action, SuccessResponseDto $successResponseDto): Response
     {
-        $token = $request->headers->get('API-TOKEN');
-        /**@var User $user */
-        $user = $this->getUser();
-        $action->run($user, $token);
+        $token = $request->headers->get('Authorization');
+        $action->run($token);
         return $successResponseDto->transformerResponse();
     }
 
